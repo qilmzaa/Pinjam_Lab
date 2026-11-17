@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" modified="2026-11-17T00:00:00.000Z" agent="PeminjamanLab" version="24.0.0" type="device">
+  <diagram id="erd-peminjaman-lab" name="ERD Peminjaman Barang Lab">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ============ JUDUL ============ -->
+        <mxCell id="judul" value="ERD — APLIKASI PEMINJAMAN BARANG LABORATORIUM SEKOLAH&#10;Database: db_peminjaman_lab (MySQL)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="800" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ============ USERS ============ -->
+        <mxCell id="users" value="&lt;b&gt;&lt;font color=&quot;#ffffff&quot;&gt;users&lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_user : BIGINT (AI)&lt;br&gt;name : VARCHAR(100)&lt;br&gt;email : VARCHAR(100) UNIQUE&lt;br&gt;password : VARCHAR(255)&lt;br&gt;role : ENUM(admin, petugas)&lt;br&gt;remember_token&lt;br&gt;created_at / updated_at" style="verticalAlign=top;align=left;overflow=fill;fillColor=#1e3a5f;strokeColor=#162c48;fontColor=#000000;html=1;rounded=1;shadow=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="230" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- ============ SISWA ============ -->
+        <mxCell id="siswa" value="&lt;b&gt;&lt;font color=&quot;#ffffff&quot;&gt;siswa&lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_siswa : BIGINT (AI)&lt;br&gt;nis : VARCHAR(20) UNIQUE&lt;br&gt;nama_lengkap : VARCHAR(100)&lt;br&gt;kelas : VARCHAR(20)&lt;br&gt;jurusan : VARCHAR(50)&lt;br&gt;no_telepon : VARCHAR(20) NULL&lt;br&gt;created_at / updated_at" style="verticalAlign=top;align=left;overflow=fill;fillColor=#0ea5e9;strokeColor=#0284c7;fontColor=#000000;html=1;rounded=1;shadow=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="560" width="230" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- ============ KATEGORI ============ -->
+        <mxCell id="kategori" value="&lt;b&gt;&lt;font color=&quot;#ffffff&quot;&gt;kategori_barang&lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_kategori : BIGINT (AI)&lt;br&gt;nama_kategori : VARCHAR(50)&lt;br&gt;kode_kategori : VARCHAR(10) UNIQUE&lt;br&gt;deskripsi : TEXT NULL&lt;br&gt;created_at / updated_at" style="verticalAlign=top;align=left;overflow=fill;fillColor=#10b981;strokeColor=#059669;fontColor=#000000;html=1;rounded=1;shadow=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="640" y="900" width="250" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- ============ BARANG ============ -->
+        <mxCell id="barang" value="&lt;b&gt;&lt;font color=&quot;#ffffff&quot;&gt;barang&lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_barang : BIGINT (AI)&lt;br&gt;kode_barang : VARCHAR(20) UNIQUE&lt;br&gt;nama_barang : VARCHAR(100)&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_kategori -&amp;gt; kategori_barang&lt;br&gt;stok : INT&lt;br&gt;stok_dipinjam : INT&lt;br&gt;kondisi : ENUM(Baik, Rusak Ringan, Rusak Berat)&lt;br&gt;status : ENUM(Tersedia, Dipinjam, Habis, Belum Dikembalikan, Perbaikan)&lt;br&gt;keterangan : TEXT NULL" style="verticalAlign=top;align=left;overflow=fill;fillColor=#10b981;strokeColor=#059669;fontColor=#000000;html=1;rounded=1;shadow=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="640" y="620" width="250" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- ============ PEMINJAMAN ============ -->
+        <mxCell id="peminjaman" value="&lt;b&gt;&lt;font color=&quot;#ffffff&quot;&gt;peminjaman&lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_peminjaman : BIGINT (AI)&lt;br&gt;kode_peminjaman : VARCHAR(20) UNIQUE&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_siswa -&amp;gt; siswa&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_user -&amp;gt; users&lt;br&gt;tanggal_pinjam : DATE&lt;br&gt;tanggal_rencana_kembali : DATE&lt;br&gt;status : ENUM(Menunggu, Dipinjam, Selesai, Ditolak)&lt;br&gt;keterangan : TEXT NULL" style="verticalAlign=top;align=left;overflow=fill;fillColor=#1e3a5f;strokeColor=#162c48;fontColor=#000000;html=1;rounded=1;shadow=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="380" y="330" width="260" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- ============ DETAIL PEMINJAMAN ============ -->
+        <mxCell id="detail" value="&lt;b&gt;&lt;font color=&quot;#ffffff&quot;&gt;detail_peminjaman&lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_detail : BIGINT (AI)&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_peminjaman -&amp;gt; peminjaman&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_barang -&amp;gt; barang&lt;br&gt;jumlah : INT&lt;br&gt;jumlah_kembali : INT (default 0)&lt;br&gt;status_detail : ENUM(Dipinjam, Dikembalikan)" style="verticalAlign=top;align=left;overflow=fill;fillColor=#0ea5e9;strokeColor=#0284c7;fontColor=#000000;html=1;rounded=1;shadow=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="380" width="260" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- ============ PENGEMBALIAN ============ -->
+        <mxCell id="pengembalian" value="&lt;b&gt;&lt;font color=&quot;#ffffff&quot;&gt;pengembalian&lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_pengembalian : BIGINT (AI)&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_detail -&amp;gt; detail_peminjaman&lt;br&gt;tanggal_kembali : DATE&lt;br&gt;kondisi_barang : ENUM(Baik, Rusak Ringan, Rusak Berat)&lt;br&gt;catatan : TEXT NULL&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_user -&amp;gt; users" style="verticalAlign=top;align=left;overflow=fill;fillColor=#f59e0b;strokeColor=#d97706;fontColor=#000000;html=1;rounded=1;shadow=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="380" width="250" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- ============ RELASI ============ -->
+        <!-- users (1) -> (N) peminjaman -->
+        <mxCell id="rel-users-pjm" value="1  mengelola  N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1e3a5f;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=11;fontStyle=1;" edge="1" parent="1" source="users" target="peminjaman">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- siswa (1) -> (N) peminjaman -->
+        <mxCell id="rel-siswa-pjm" value="1  meminjam  N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0ea5e9;strokeWidth=2;exitX=0.5;exitY=0;entryX=0;entryY=1;fontSize=11;fontStyle=1;" edge="1" parent="1" source="siswa" target="peminjaman">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- peminjaman (1) -> (N) detail -->
+        <mxCell id="rel-pjm-detail" value="1  memiliki  N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1e3a5f;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=11;fontStyle=1;" edge="1" parent="1" source="peminjaman" target="detail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- barang (1) -> (N) detail -->
+        <mxCell id="rel-barang-detail" value="1  berisi  N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#10b981;strokeWidth=2;exitX=0.5;exitY=0;entryX=0.5;entryY=1;fontSize=11;fontStyle=1;" edge="1" parent="1" source="barang" target="detail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- kategori (1) -> (N) barang -->
+        <mxCell id="rel-kat-barang" value="1  mengelompokkan  N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#10b981;strokeWidth=2;exitX=0.5;exitY=0;entryX=1;entryY=1;fontSize=11;fontStyle=1;" edge="1" parent="1" source="kategori" target="barang">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- detail (1) -> (1) pengembalian -->
+        <mxCell id="rel-detail-kembali" value="1  dikembalikan  1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#f59e0b;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=11;fontStyle=1;" edge="1" parent="1" source="detail" target="pengembalian">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- users (1) -> (N) pengembalian -->
+        <mxCell id="rel-users-kembali" value="1  mencatat  N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1e3a5f;strokeWidth=2;dashed=1;exitX=0.5;exitY=1;entryX=0;entryY=0.5;fontSize=11;fontStyle=1;" edge="1" parent="1" source="users" target="pengembalian">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="300" />
+              <mxPoint x="1240" y="300" />
+              <mxPoint x="1240" y="455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ============ LEGENDA ============ -->
+        <mxCell id="legenda" value="&lt;b&gt;LEGENDA&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; = Primary Key&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; = Foreign Key&lt;br&gt;AI = Auto Increment&lt;br&gt;Kardinalitas: 1 ke N / 1 ke 1&lt;br&gt;Garis putus-putus = relasi opsional" style="verticalAlign=top;align=left;overflow=fill;fillColor=#f1f5f9;strokeColor=#94a3b8;html=1;rounded=1;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="760" width="230" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
